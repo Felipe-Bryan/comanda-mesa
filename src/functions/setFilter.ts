@@ -1,5 +1,6 @@
 import { productItem } from '../components/productItem';
 import { Product } from '../types/Product';
+import { setCardClick } from './setCardClick';
 
 export function setFilter(products: Product[]): void {
   const filtered = document.querySelectorAll('.categoryBtn');
@@ -26,10 +27,10 @@ function setProductsByCategory(id: string, products: Product[]): void {
 
   const productItems = document.querySelectorAll('.productItem');
 
-  // productItems.forEach((product) => {
-  //   const productId = product.id.replace('productCard', '');
-  //   product.addEventListener('click', () => {
-  //     setCardClick(productId);
-  //   });
-  // });
+  productItems.forEach((product) => {
+    // const productId = product.id.replace('productCard', '');
+    product.addEventListener('click', () => {
+      setCardClick(products, product.id);
+    });
+  });
 }

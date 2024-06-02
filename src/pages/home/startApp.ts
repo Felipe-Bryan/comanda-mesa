@@ -4,6 +4,7 @@ import { Required, RequiredItem } from '../../types/Required';
 import { Store } from '../../types/Store';
 import { componentVisibility } from '../../utils/componentVisibility';
 import { getStorageData } from '../../utils/getStorageData';
+import { saveToStorage } from '../../utils/saveToStorage';
 import { startMenu } from '../menu/startMenu';
 import { defineStoreInfo } from './defineStoreInfo';
 
@@ -29,6 +30,8 @@ export function startApp() {
       required.items = requiredItems.filter((requiredItem: RequiredItem) => requiredItem.requiredId === required.id);
     });
   });
+
+  saveToStorage('storeInfo', store);
 
   defineStoreInfo(store);
   setClickNavButtons(store);
