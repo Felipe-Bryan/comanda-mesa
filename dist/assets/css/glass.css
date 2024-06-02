@@ -1,0 +1,63 @@
+.glass {
+    backdrop-filter: blur(15px) saturate(100%)!important;
+    -webkit-backdrop-filter: blur(15px) saturate(100%)!important;
+    background-color: rgba(255, 255, 255, 0.096)!important;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white!important;
+    
+}
+
+.row{
+    max-width: 100vw;
+}
+
+.nav-glass {
+    backdrop-filter: blur(15px) saturate(100%)!important;
+    -webkit-backdrop-filter: blur(15px) saturate(100%)!important;
+    background-color: rgba(26, 25, 25, 0.301)!important;
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white!important
+}
+
+.footer-glass {
+    backdrop-filter: blur(15px) saturate(100%)!important;
+    -webkit-backdrop-filter: blur(15px) saturate(100%)!important;
+    background-color: rgba(26, 25, 25, 0.301)!important;
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white!important
+}
+  
+.inner-glass {
+    background-color: rgba(255, 255, 255, 0)!important
+}
+
+.btn-glass {
+    backdrop-filter: blur(10px) saturate(100%)!important;
+    -webkit-backdrop-filter: blur(10px) saturate(100%)!important;
+    background-color: rgba(0, 0, 0, 0.4)!important;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white!important;    
+}
+
+.glass-bg {
+    background-image: url(../images/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: rgb(27, 27, 27);
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.btnHelp-glass {
+    backdrop-filter: blur(10px) saturate(100%)!important;
+    -webkit-backdrop-filter: blur(10px) saturate(100%)!important;
+    background-color: rgba(0, 37, 250, 0.5)!important;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white!important;    
+}
+

@@ -1,0 +1,23 @@
+/* .brand-font {
+    	font-family: FontName, Arial, sans-serif;
+} */
+
+/* @font-face {
+    font-family: FontName;
+    src: url('./fonts/');
+} */
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.no-scroll {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
