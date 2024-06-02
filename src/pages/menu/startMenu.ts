@@ -3,8 +3,11 @@ import { setFilter } from '../../functions/setFilter';
 import { setProductsMenu } from '../../functions/setProductsMenu';
 import { Store } from '../../types/Store';
 import { componentVisibility } from '../../utils/componentVisibility';
+import { getStorageData } from '../../utils/getStorageData';
 
-export async function startMenu(store: Store) {
+export async function startMenu() {
+  const store: Store = getStorageData('storeInfo');
+
   componentVisibility('help', 'show');
   componentVisibility('btnHelp', 'show');
   componentVisibility('tableConsumption', 'hide');

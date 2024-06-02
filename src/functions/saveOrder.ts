@@ -43,9 +43,7 @@ export async function saveOrder() {
   if (orderFound.additionalSelected) {
     if (orderFound.additionalSelected.length > 0) {
       orderFound.additionalSelected.forEach(async (additional) => {
-        await new apiData().postData('additional-selected', additional).then((data) => {
-          console.log(data);
-        });
+        await new apiData().postData('additional-selected', additional);
       });
     }
   }
@@ -53,9 +51,7 @@ export async function saveOrder() {
   if (orderFound.requiredSelected) {
     if (orderFound.requiredSelected.length > 0) {
       orderFound.requiredSelected.forEach(async (required) => {
-        await new apiData().postData('required-selected', required).then((data) => {
-          console.log(data);
-        });
+        await new apiData().postData('required-selected', required);
       });
     }
   }

@@ -26,4 +26,15 @@ export class apiData {
 
     return result;
   }
+
+  public async putData(url: string, id: string, info: any) {
+    const endpoint = `${url}/${id}`;
+    let result: any;
+
+    await api.put(endpoint, info).then((data) => {
+      result = data.data;
+    });
+
+    return result;
+  }
 }

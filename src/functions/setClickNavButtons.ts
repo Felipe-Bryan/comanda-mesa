@@ -1,13 +1,12 @@
 import { startConsumption } from '../pages/consumption/startConsumption';
 import { startMenu } from '../pages/menu/startMenu';
-import { Store } from '../types/Store';
 import { setNavBtnActive } from './setNavBtnActive';
 
-export function setClickNavButtons(store: Store): void {
+export function setClickNavButtons(): void {
   document.getElementById('btnViewMenu')!.addEventListener('click', () => {
     setNavBtnActive('btnViewMenu', true);
     setNavBtnActive('btnViewConsumption', false);
-    startMenu(store);
+    startMenu();
   });
 
   document.getElementById('btnViewConsumption')!.addEventListener('click', () => {

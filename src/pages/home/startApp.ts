@@ -34,12 +34,12 @@ export function startApp() {
   saveToStorage('storeInfo', store);
 
   defineStoreInfo(store);
-  setClickNavButtons(store);
+  setClickNavButtons();
   componentVisibility('loading', 'hide');
   componentVisibility('storeInfo', 'show');
   componentVisibility('mainNav', 'show');
   componentVisibility('placeLogo', 'show');
   componentVisibility('storeName', 'show');
 
-  startMenu(store);
+  startMenu();
 }
