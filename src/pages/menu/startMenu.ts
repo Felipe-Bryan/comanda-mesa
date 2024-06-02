@@ -15,6 +15,8 @@ export async function startMenu() {
   componentVisibility('productsMenu', 'show');
   componentVisibility('loading', 'hide');
 
+  document.getElementById('setControlSpot')!.innerHTML = '';
+
   setCategories(store.categories);
 
   setProductsMenu(store.categories, store.products);

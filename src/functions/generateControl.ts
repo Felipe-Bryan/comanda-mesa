@@ -1,42 +1,37 @@
 import { triggerAlert } from '../components/alert';
-import { startConsumption } from '../pages/consumption/startConsumption';
+import { startMenu } from '../pages/menu/startMenu';
 import { apiData } from '../service/api.service';
 import { Control } from '../types/Control';
 import { Order } from '../types/Order';
 import { getStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
-import { controlIdGenerate } from './controlIdGenerate';
 
-export async function generateControl() {
+export async function generateControl(controlId: string) {
   const orders: Order[] = getStorageData('tableOrderInfo');
+  console.log('passo 1');
 
   const newControl: Control = {
-    id: controlIdGenerate(),
+    id: controlId,
     tableId: getUrlValue('t'),
     storeId: getUrlValue('s'),
     orders,
   };
 
-  console.log(newControl);
+  await new apiData().postData('control', {
+    id: newControl.id,
+    tableId: newControl.tableId,
+    storeId: newControl.storeId,
+  });
 
-  await new apiData()
-    .postData('control', {
-      id: newControl.id,
-      tableId: newControl.tableId,
-      storeId: newControl.storeId,
-    })
-    .then((data) => {
-      newControl.orders.forEach(async (order) => {
-        await new apiData().putData('order', order.id, {
-          controlId: newControl.id,
-        });
-      });
-
-      return data;
-    })
-    .then((data) => {
-      triggerAlert(data.msg, 'success');
-
-      startConsumption();
+  newControl.orders.forEach(async (order) => {
+    await new apiData().putData('order', order.id, {
+      controlId: newControl.id,
     });
+  });
+
+  console.log('passo 2');
+  triggerAlert('Comanda Finalizada!', 'success');
+
+  console.log('passo 3');
+  startMenu();
 }

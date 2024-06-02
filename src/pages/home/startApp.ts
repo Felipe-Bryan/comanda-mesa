@@ -1,3 +1,4 @@
+import { controlIdGenerate } from '../../functions/controlIdGenerate';
 import { setClickNavButtons } from '../../functions/setClickNavButtons';
 import { Additional } from '../../types/Additional';
 import { Required, RequiredItem } from '../../types/Required';
@@ -32,6 +33,8 @@ export function startApp() {
   });
 
   saveToStorage('storeInfo', store);
+
+  saveToStorage('controlId', controlIdGenerate());
 
   defineStoreInfo(store);
   setClickNavButtons();

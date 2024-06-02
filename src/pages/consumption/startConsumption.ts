@@ -1,4 +1,5 @@
 import { tableOrderItem } from '../../components/tableOrderItem';
+import { controlIdGenerate } from '../../functions/controlIdGenerate';
 import { generateControl } from '../../functions/generateControl';
 import { tableDBInfo } from '../../service/tableDBInfo';
 import { AdditionalSelected } from '../../types/AdditionalSelected';
@@ -17,6 +18,9 @@ export function startConsumption() {
   componentVisibility('loading', 'show');
   componentVisibility('tableConsumption', 'hide');
   componentVisibility('tableFoot', 'hide');
+
+  document.getElementById('setControlSpot')!.innerHTML = `
+  <button class="btn btn-info" type="button" id="setControlBtn">Finalizar Comanda</button>`;
 
   window.scrollTo(0, 0);
 
@@ -70,9 +74,13 @@ export function startConsumption() {
       totalValueSpot.innerHTML = `R$ ${totalValue.toFixed(2)}`;
     }
 
+    const controlId = getStorageData('controlId');
+
     // atribuir click ao botão setControlBtn
-    document.getElementById('setControlBtn')!.addEventListener('click', () => {
-      generateControl();
+    document.getElementById('setControlBtn')!.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      generateControl(controlId);
     });
   });
 }
