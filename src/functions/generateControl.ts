@@ -11,21 +11,21 @@ export async function generateControl(controlId: string) {
   console.log('passo 1');
 
   const newControl: Control = {
-    id: controlId,
+    name: controlId,
     tableId: getUrlValue('t'),
     storeId: getUrlValue('s'),
     orders,
   };
 
   await new apiData().postData('control', {
-    id: newControl.id,
+    name: newControl.name,
     tableId: newControl.tableId,
     storeId: newControl.storeId,
   });
 
   newControl.orders.forEach(async (order) => {
     await new apiData().putData('order', order.id, {
-      controlId: newControl.id,
+      controlId: newControl.name,
     });
   });
 
