@@ -99,7 +99,7 @@
               <br />
             </div>
 
-            <div class="form-floating">
+            <div class="form-floating" id="commentArea">
               <textarea
                 class="form-control"
                 placeholder="Leave a comment here"
@@ -109,19 +109,33 @@
             </div>
             <br />
 
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end" id="orderValueSpot">
               <div class="fst-italic fw-bold fs-5">R$ <span id="orderValue"></span></div>
             </div>
 
             <div id="btnQt"></div>
           </div>
+
+          <div id="customerInfo">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Informe seu nome:</span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nome"
+                aria-label="Nome"
+                aria-describedby="basic-addon1"
+                id="customerName" />
+            </div>
+          </div>
+
           <div class="modal-footer m-1 p-1" id="modalFooter"></div>
         </div>
       </div>
     </div>
 
     <button
-      id="closeModal"
+      id="toggleModal"
       type="button"
       class="btn btn-primary"
       data-bs-toggle="modal"

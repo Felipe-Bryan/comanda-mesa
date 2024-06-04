@@ -1,6 +1,6 @@
 import { tableOrderItem } from '../../components/tableOrderItem';
-import { controlIdGenerate } from '../../functions/controlIdGenerate';
 import { generateControl } from '../../functions/generateControl';
+import { setNavBtnActive } from '../../functions/setNavBtnActive';
 import { tableDBInfo } from '../../service/tableDBInfo';
 import { AdditionalSelected } from '../../types/AdditionalSelected';
 import { RequiredSelected } from '../../types/RequiredSelected';
@@ -18,6 +18,9 @@ export function startConsumption() {
   componentVisibility('loading', 'show');
   componentVisibility('tableConsumption', 'hide');
   componentVisibility('tableFoot', 'hide');
+
+  setNavBtnActive('btnViewConsumption', true);
+  setNavBtnActive('btnViewMenu', false);
 
   document.getElementById('setControlSpot')!.innerHTML = `
   <button class="btn btn-info" type="button" id="setControlBtn">Finalizar Comanda</button>`;

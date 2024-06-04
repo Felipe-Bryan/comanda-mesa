@@ -1,9 +1,10 @@
 import { triggerAlert } from '../components/alert';
 import { apiData } from '../service/api.service';
 import { Order } from '../types/Order';
-import { closeModal } from '../utils/closeModal';
 import { getStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
+import { saveToStorage } from '../utils/saveToStorage';
+import { toggleModal } from '../utils/toggleModal';
 
 export async function saveOrder() {
   const orderFound: Order = getStorageData('newOrder');
@@ -22,6 +23,22 @@ export async function saveOrder() {
     }
   }
 
+  const customerNameIpt = <HTMLInputElement>document.getElementById('customerName')!;
+
+  customerNameIpt.addEventListener('change', () => {
+    customerNameIpt.classList.remove('is-invalid');
+  });
+
+  if (customerNameIpt.value == '' || customerNameIpt.value.length < 2) {
+    customerNameIpt.classList.add('is-invalid');
+
+    triggerAlert('Nome deve conter mais de 2 letras', 'danger');
+
+    return;
+  } else {
+    saveToStorage('customerName', customerNameIpt.value);
+  }
+
   const orderToDb: Order = {
     id: orderFound.id,
     tableId: getUrlValue('t'),
@@ -32,6 +49,7 @@ export async function saveOrder() {
     quantity: orderFound.quantity,
     value: orderFound.value,
     status: orderFound.status,
+    customerId: customerNameIpt.value,
   };
 
   const comment = <HTMLInputElement>document.getElementById('comment')!;
@@ -57,10 +75,8 @@ export async function saveOrder() {
   }
 
   await new apiData().postData('order', orderToDb).then((data) => {
-    console.log(data);
+    toggleModal();
 
-    closeModal();
-
-    triggerAlert(data.msg, 'success');
+    triggerAlert(data.msg, 'success', 4000);
   });
 }

@@ -1,5 +1,6 @@
 import { setCategories } from '../../functions/setCategories';
 import { setFilter } from '../../functions/setFilter';
+import { setNavBtnActive } from '../../functions/setNavBtnActive';
 import { setProductsMenu } from '../../functions/setProductsMenu';
 import { Store } from '../../types/Store';
 import { componentVisibility } from '../../utils/componentVisibility';
@@ -14,6 +15,9 @@ export async function startMenu() {
   componentVisibility('categoryNav', 'show');
   componentVisibility('productsMenu', 'show');
   componentVisibility('loading', 'hide');
+
+  setNavBtnActive('btnViewMenu', true);
+  setNavBtnActive('btnViewConsumption', false);
 
   document.getElementById('setControlSpot')!.innerHTML = '';
 

@@ -13,17 +13,20 @@ import { removeOrderQt } from './removeOrderQt';
 import { modalFooter } from '../components/modalFooter';
 import { watchRadios } from './watchRadios';
 import { saveOrder } from './saveOrder';
+import { getStorageData } from '../utils/getStorageData';
 
 export function setCardClick(products: Product[], productId: string) {
   const commentIpt = <HTMLInputElement>document.getElementById('comment')!;
   commentIpt.value = '';
   // Pega o produto no banco de dados
 
+  const customerNameIpt = <HTMLInputElement>document.getElementById('customerName')!;
+
+  customerNameIpt.value = getStorageData('customerName');
+
   const productFound = products.find((product) => {
     return product.id === productId;
   })!;
-
-  // productFound.price = Number(productFound.price);
 
   const newOrder: Order = {
     id: v4(),
@@ -36,6 +39,7 @@ export function setCardClick(products: Product[], productId: string) {
     active: true,
     productPrice: Number(productFound.price),
     productName: productFound.name,
+    customerId: customerNameIpt.value,
   };
 
   saveToStorage('newOrder', newOrder);
@@ -82,6 +86,8 @@ export function setCardClick(products: Product[], productId: string) {
 
   watchRadios(products);
   watchCheckboxes();
+
+  componentVisibility('orderValueSpot', 'show');
 
   document.getElementById('orderValue')!.innerText = productFound.price.toFixed(2);
 

@@ -7,31 +7,34 @@ import { getStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
 
 export async function generateControl(controlId: string) {
-  const orders: Order[] = getStorageData('tableOrderInfo');
-  console.log('passo 1');
+  let confirmation = confirm('Deseja realmente finalizar a comanda');
 
-  const newControl: Control = {
-    name: controlId,
-    tableId: getUrlValue('t'),
-    storeId: getUrlValue('s'),
-    orders,
-  };
+  if (confirmation) {
+    const orders: Order[] = getStorageData('tableOrderInfo');
 
-  await new apiData().postData('control', {
-    name: newControl.name,
-    tableId: newControl.tableId,
-    storeId: newControl.storeId,
-  });
+    const newControl: Control = {
+      name: controlId,
+      tableId: getUrlValue('t'),
+      storeId: getUrlValue('s'),
+      orders,
+    };
 
-  newControl.orders.forEach(async (order) => {
-    await new apiData().putData('order', order.id, {
-      controlId: newControl.name,
+    await new apiData().postData('control', {
+      name: newControl.name,
+      tableId: newControl.tableId,
+      storeId: newControl.storeId,
     });
-  });
 
-  console.log('passo 2');
-  triggerAlert('Comanda Finalizada!', 'success');
+    newControl.orders.forEach(async (order) => {
+      await new apiData().putData('order', order.id, {
+        controlId: newControl.name,
+      });
+    });
 
-  console.log('passo 3');
-  startMenu();
+    triggerAlert(`Comanda ${controlId} fechada!`, 'success');
+
+    startMenu();
+  } else {
+    return;
+  }
 }

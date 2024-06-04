@@ -8,6 +8,7 @@ export interface Order {
   value: number;
   status: 'Enviado' | 'Confirmado' | 'Entregue';
   active?: boolean;
+  customerId: string;
 
   tableId: string;
   storeId: string;

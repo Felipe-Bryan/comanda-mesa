@@ -1,6 +1,7 @@
 export function triggerAlert(
   msg: string,
-  type: 'primary' | 'secondary' | 'success' | 'danger' | 'info' | 'warning' | 'light' | 'dark'
+  type: 'primary' | 'secondary' | 'success' | 'danger' | 'info' | 'warning' | 'light' | 'dark',
+  time?: number
 ) {
   const alertPlaceholder = document.getElementById('alertPlaceholder')!;
 
@@ -12,9 +13,11 @@ export function triggerAlert(
 
   alertPlaceholder.innerHTML += alert;
 
-  setTimeout(() => {
-    closealert();
-  }, 4000);
+  if (time) {
+    setTimeout(() => {
+      closealert();
+    }, time);
+  }
 }
 
 function closealert() {
