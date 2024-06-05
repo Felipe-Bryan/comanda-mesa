@@ -5,6 +5,8 @@ import { Control } from '../types/Control';
 import { Order } from '../types/Order';
 import { getStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
+import { saveToStorage } from '../utils/saveToStorage';
+import { controlIdGenerate } from './controlIdGenerate';
 
 export async function generateControl(controlId: string) {
   let confirmation = confirm('Deseja realmente finalizar a comanda');
@@ -32,6 +34,8 @@ export async function generateControl(controlId: string) {
     });
 
     triggerAlert(`Comanda ${controlId} fechada!`, 'success');
+
+    saveToStorage('controlId', controlIdGenerate());
 
     startMenu();
   } else {
