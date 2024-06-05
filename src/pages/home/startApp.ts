@@ -1,10 +1,12 @@
 import { controlIdGenerate } from '../../functions/controlIdGenerate';
 import { setClickNavButtons } from '../../functions/setClickNavButtons';
+import { watchOrderStatus } from '../../service/watchOrderStatus';
 import { Additional } from '../../types/Additional';
 import { Required, RequiredItem } from '../../types/Required';
 import { Store } from '../../types/Store';
 import { componentVisibility } from '../../utils/componentVisibility';
 import { getStorageData } from '../../utils/getStorageData';
+import { getUrlValue } from '../../utils/getUrlValue';
 import { saveToStorage } from '../../utils/saveToStorage';
 import { startMenu } from '../menu/startMenu';
 import { defineStoreInfo } from './defineStoreInfo';
@@ -43,6 +45,10 @@ export function startApp() {
   componentVisibility('mainNav', 'show');
   componentVisibility('placeLogo', 'show');
   componentVisibility('storeName', 'show');
+
+  setInterval(() => {
+    watchOrderStatus(getUrlValue('t'));
+  }, 5000);
 
   startMenu();
 }

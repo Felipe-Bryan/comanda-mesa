@@ -1,14 +1,8 @@
-import { tableOrderItem } from '../../components/tableOrderItem';
-import { generateControl } from '../../functions/generateControl';
 import { setNavBtnActive } from '../../functions/setNavBtnActive';
-import { tableDBInfo } from '../../service/tableDBInfo';
-import { AdditionalSelected } from '../../types/AdditionalSelected';
-import { RequiredSelected } from '../../types/RequiredSelected';
-import { Table } from '../../types/Table';
+import { updateTableInfo } from '../../service/tableDBInfo';
 import { componentVisibility } from '../../utils/componentVisibility';
-import { getStorageData } from '../../utils/getStorageData';
 import { getUrlValue } from '../../utils/getUrlValue';
-import { saveToStorage } from '../../utils/saveToStorage';
+import { renderTableItems } from './renderTableItems';
 
 export function startConsumption() {
   componentVisibility('btnHelp', 'hide');
@@ -22,68 +16,39 @@ export function startConsumption() {
   setNavBtnActive('btnViewConsumption', true);
   setNavBtnActive('btnViewMenu', false);
 
-  document.getElementById('setControlSpot')!.innerHTML = `
-  <button class="btn btn-info" type="button" id="setControlBtn">Finalizar Comanda</button>`;
-
   window.scrollTo(0, 0);
 
-  Promise.all([tableDBInfo(getUrlValue('t'))]).then(() => {
+  Promise.all([updateTableInfo(getUrlValue('t'))]).then(() => {
     componentVisibility('loading', 'hide');
     componentVisibility('tableConsumption', 'show');
     componentVisibility('tableFoot', 'show');
 
-    const table: Table = getStorageData('tableInfo');
-    table.orders = getStorageData('tableOrderInfo');
+    renderTableItems();
 
-    const additionalSelecteds = getStorageData('tableAdditionalInfo');
+    // const additionalSelecteds = getStorageData('tableAdditionalInfo');
 
-    const requiredSelecteds = getStorageData('tableRequiredInfo');
+    // const requiredSelecteds = getStorageData('tableRequiredInfo');
 
-    table.orders.forEach((order) => {
-      order.additionalSelected = [];
+    // table.orders.forEach((order) => {
+    //   order.additionalSelected = [];
 
-      additionalSelecteds.forEach((additional: AdditionalSelected) => {
-        if (additional.orderId === order.id) {
-          order.additionalSelected?.push(additional);
-        }
-      });
-    });
+    //   additionalSelecteds.forEach((additional: AdditionalSelected) => {
+    //     if (additional.orderId === order.id) {
+    //       order.additionalSelected?.push(additional);
+    //     }
+    //   });
+    // });
 
-    table.orders.forEach((order) => {
-      order.requiredSelected = [];
+    // table.orders.forEach((order) => {
+    //   order.requiredSelected = [];
 
-      requiredSelecteds.forEach((required: RequiredSelected) => {
-        if (required.orderId === order.id) {
-          order.requiredSelected?.push(required);
-        }
-      });
-    });
+    //   requiredSelecteds.forEach((required: RequiredSelected) => {
+    //     if (required.orderId === order.id) {
+    //       order.requiredSelected?.push(required);
+    //     }
+    //   });
+    // });
 
-    saveToStorage('tableOrderInfo', table.orders);
-
-    document.getElementById('tableContent')!.innerHTML = '';
-
-    if (table && table.orders) {
-      let totalValue = 0;
-
-      const totalValueSpot = document.getElementById('totalValue')!;
-
-      table.orders.forEach((order) => {
-        totalValue += order.value;
-
-        tableOrderItem(order);
-      });
-
-      totalValueSpot.innerHTML = `R$ ${totalValue.toFixed(2)}`;
-    }
-
-    const controlId = getStorageData('controlId');
-
-    // atribuir click ao botão setControlBtn
-    document.getElementById('setControlBtn')!.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      generateControl(controlId);
-    });
+    // saveToStorage('tableOrderInfo', table.orders);
   });
 }
