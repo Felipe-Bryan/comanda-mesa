@@ -55,13 +55,25 @@ export function setCardClick(products: Product[], productId: string) {
   // verifica se o produto tem itens de seleção obrigatoria
   if (productFound.requireds) {
     if (productFound.requireds.length > 0) {
-      componentVisibility('requiredOptions', 'show');
+      let activeItems = 0;
 
-      for (let i = 0; i < productFound.requireds.length; i++) {
-        requiredOptionsSpot.innerHTML += requiredItem(productFound.requireds[i], i);
+      productFound.requireds.forEach((req) => {
+        if (req.active === true) {
+          activeItems += 1;
+        }
+      });
+
+      if (activeItems > 0) {
+        componentVisibility('requiredOptions', 'show');
+
+        for (let i = 0; i < productFound.requireds.length; i++) {
+          if (productFound.requireds[i].active === true) {
+            requiredOptionsSpot.innerHTML += requiredItem(productFound.requireds[i], i);
+          }
+        }
+      } else {
+        componentVisibility('requiredOptions', 'hide');
       }
-    } else {
-      componentVisibility('requiredOptions', 'hide');
     }
   }
 
@@ -71,16 +83,28 @@ export function setCardClick(products: Product[], productId: string) {
   // verifica se o produto tem itens de seleção opcional
   if (productFound.additionals) {
     if (productFound.additionals.length > 0) {
-      // caso tenha habilita visualização do campo onde serão exibidos os itens
-      componentVisibility('additionalOptions', 'show');
+      let activeItems = 0;
 
-      //define o componente para cada item encontrado
-      for (let i = 0; i < productFound.additionals.length; i++) {
-        additionalItemsSpot.innerHTML += additionalItem(productFound.additionals[i], i);
+      productFound.additionals.forEach((add) => {
+        if (add.active === true) {
+          activeItems += 1;
+        }
+      });
+
+      if (activeItems > 0) {
+        // caso tenha habilita visualização do campo onde serão exibidos os itens
+        componentVisibility('additionalOptions', 'show');
+
+        //define o componente para cada item encontrado
+        for (let i = 0; i < productFound.additionals.length; i++) {
+          if (productFound.additionals[i].active === true) {
+            additionalItemsSpot.innerHTML += additionalItem(productFound.additionals[i], i);
+          }
+        }
+      } else {
+        // esconde o campo caso não haja itens de seleção opcional
+        componentVisibility('additionalOptions', 'hide');
       }
-    } else {
-      // esconde o campo caso não haja itens de seleção opcional
-      componentVisibility('additionalOptions', 'hide');
     }
   }
 

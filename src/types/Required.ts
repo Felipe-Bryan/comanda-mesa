@@ -3,6 +3,7 @@ export interface Required {
   title: string;
   items: RequiredItem[];
   productId: string;
+  active: boolean;
 }
 
 export interface RequiredItem {
