@@ -13,15 +13,17 @@ export function setProductsMenu(categoriesDB: Category[], productsDB: Product[])
   const products = productsDB;
 
   categories.forEach((category) => {
-    products.forEach((product) => {
-      if (product.categoryId === category.id) {
-        if (product.active) {
-          product.price = Number(product.price);
+    if (category.active === true) {
+      products.forEach((product) => {
+        if (product.categoryId === category.id) {
+          if (product.active === true) {
+            product.price = Number(product.price);
 
-          productsSpot.innerHTML += productItem(product);
+            productsSpot.innerHTML += productItem(product);
+          }
         }
-      }
-    });
+      });
+    }
   });
 
   const productItems = document.querySelectorAll('.productItem');
