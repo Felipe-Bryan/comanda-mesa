@@ -21,3 +21,8 @@
 .no-scroll::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
+
+#alertPlaceholder{
+  position: absolute;
+  z-index: 9999!important
+}
