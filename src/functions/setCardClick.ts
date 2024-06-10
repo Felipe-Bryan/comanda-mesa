@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { Order } from '../types/Order';
 import { Product } from '../types/Product';
 import { getUrlValue } from '../utils/getUrlValue';
-import { saveToStorage } from '../utils/saveToStorage';
+import { saveToSessionStorage } from '../utils/saveToStorage';
 import { componentVisibility } from '../utils/componentVisibility';
 import { requiredItem } from '../components/requiredItem';
 import { additionalItem } from '../components/additionalItem';
@@ -42,7 +42,7 @@ export function setCardClick(products: Product[], productId: string) {
     customerId: customerNameIpt.value,
   };
 
-  saveToStorage('newOrder', newOrder);
+  saveToSessionStorage('newOrder', newOrder);
 
   // Define nome do Modal com nome do produto
   document.getElementById('cartModalLabel')!.innerText = productFound.name;

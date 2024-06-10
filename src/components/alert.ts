@@ -1,18 +1,17 @@
 export function triggerAlert(
   msg: string,
   type: 'primary' | 'secondary' | 'success' | 'danger' | 'info' | 'warning' | 'light' | 'dark',
-  position: 'top' | 'bottom',
   time?: number
 ) {
   const alertPlaceholder = document.getElementById('alertPlaceholder')!;
 
   const alert = `
-      <div class="alert alert-${type} alert-dismissible fixed-${position} mx-2" role="alert">
+      <div class="alert alert-${type} alert-dismissible fixed-bottom mx-2" role="alert">
           <div>${msg}</div>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>`;
 
-  alertPlaceholder.innerHTML += alert;
+  alertPlaceholder.innerHTML = alert;
 
   if (time) {
     setTimeout(() => {

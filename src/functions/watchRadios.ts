@@ -1,19 +1,19 @@
 import { Order } from '../types/Order';
 import { Product } from '../types/Product';
 import { RequiredSelected } from '../types/RequiredSelected';
-import { getStorageData } from '../utils/getStorageData';
+import { getSessionStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
-import { saveToStorage } from '../utils/saveToStorage';
+import { saveToSessionStorage } from '../utils/saveToStorage';
 import { calcValues } from './calcValues';
 
 export function watchRadios(products: Product[]) {
-  const orderFound: Order = getStorageData('newOrder');
+  const orderFound: Order = getSessionStorageData('newOrder');
 
   const orderValue = document.getElementById('orderValue')!;
 
   let modifiedOrder: Order = { ...orderFound, requiredSelected: [] };
 
-  saveToStorage('newOrder', modifiedOrder);
+  saveToSessionStorage('newOrder', modifiedOrder);
 
   const product = products.find((item) => item.id === orderFound.productId);
 
@@ -30,7 +30,7 @@ export function watchRadios(products: Product[]) {
 
       modifiedOrder.requiredSelected?.push(blankItem);
 
-      saveToStorage('newOrder', modifiedOrder);
+      saveToSessionStorage('newOrder', modifiedOrder);
     }
 
     for (let i = 0; i < product.requireds.length; i++) {
@@ -38,7 +38,7 @@ export function watchRadios(products: Product[]) {
 
       inputs.forEach((input) => {
         input.addEventListener('change', () => {
-          let updateOrderFound: Order = getStorageData('newOrder');
+          let updateOrderFound: Order = getSessionStorageData('newOrder');
 
           if (input.checked) {
             document.querySelectorAll(`.required${i}`)!.forEach((input) => {
@@ -61,7 +61,7 @@ export function watchRadios(products: Product[]) {
             orderValue.innerText = calcValues(updateOrderFound).toFixed(2);
             updateOrderFound.value = calcValues(updateOrderFound);
 
-            saveToStorage('newOrder', updateOrderFound);
+            saveToSessionStorage('newOrder', updateOrderFound);
           }
         });
       });

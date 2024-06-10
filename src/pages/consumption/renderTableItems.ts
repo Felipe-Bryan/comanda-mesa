@@ -1,11 +1,11 @@
 import { tableOrderItem } from '../../components/tableOrderItem';
 import { generateControl } from '../../functions/generateControl';
 import { Table } from '../../types/Table';
-import { getStorageData } from '../../utils/getStorageData';
+import { getSessionStorageData } from '../../utils/getStorageData';
 
 export function renderTableItems() {
-  const table: Table = getStorageData('tableInfo');
-  table.orders = getStorageData('tableOrderInfo');
+  const table: Table = getSessionStorageData('tableInfo');
+  table.orders = getSessionStorageData('tableOrderInfo');
 
   document.getElementById('tableContent')!.innerHTML = '';
 
@@ -23,7 +23,7 @@ export function renderTableItems() {
     totalValueSpot.innerHTML = `R$ ${totalValue.toFixed(2)}`;
 
     if (table.orders.length > 0) {
-      const controlId = getStorageData('controlId');
+      const controlId = getSessionStorageData('controlId');
 
       document.getElementById('setControlSpot')!.innerHTML = `
         <button class="btn btn-info" type="button" id="setControlBtn">Finalizar Comanda</button>`;

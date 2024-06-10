@@ -1,13 +1,13 @@
 import { triggerAlert } from '../components/alert';
 import { apiData } from '../service/api.service';
 import { Order } from '../types/Order';
-import { getStorageData } from '../utils/getStorageData';
+import { getSessionStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
 import { saveToStorage } from '../utils/saveToStorage';
 import { toggleModal } from '../utils/toggleModal';
 
 export async function saveOrder() {
-  const orderFound: Order = getStorageData('newOrder');
+  const orderFound: Order = getSessionStorageData('newOrder');
 
   if (orderFound.requiredSelected) {
     if (orderFound.requiredSelected.length > 0) {
@@ -32,7 +32,7 @@ export async function saveOrder() {
   if (customerNameIpt.value == '' || customerNameIpt.value.length < 2) {
     customerNameIpt.classList.add('is-invalid');
 
-    triggerAlert('Nome deve conter mais de 2 letras', 'danger', 'top', 4000);
+    triggerAlert('Nome deve conter mais de 2 letras', 'danger', 4000);
 
     return;
   } else {
@@ -77,6 +77,6 @@ export async function saveOrder() {
   await new apiData().postData('order', orderToDb).then((data) => {
     toggleModal();
 
-    triggerAlert(data.msg, 'success', 'bottom', 4000);
+    triggerAlert(data.msg, 'success', 4000);
   });
 }

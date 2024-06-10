@@ -4,10 +4,10 @@ import { setNavBtnActive } from '../../functions/setNavBtnActive';
 import { setProductsMenu } from '../../functions/setProductsMenu';
 import { Store } from '../../types/Store';
 import { componentVisibility } from '../../utils/componentVisibility';
-import { getStorageData } from '../../utils/getStorageData';
+import { getSessionStorageData } from '../../utils/getStorageData';
 
 export async function startMenu() {
-  const store: Store = getStorageData('storeInfo');
+  const store: Store = getSessionStorageData('storeInfo');
 
   componentVisibility('help', 'show');
   componentVisibility('btnHelp', 'show');

@@ -3,16 +3,16 @@ import { startMenu } from '../pages/menu/startMenu';
 import { apiData } from '../service/api.service';
 import { Control } from '../types/Control';
 import { Order } from '../types/Order';
-import { getStorageData } from '../utils/getStorageData';
+import { getSessionStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
-import { saveToStorage } from '../utils/saveToStorage';
+import { saveToSessionStorage } from '../utils/saveToStorage';
 import { controlIdGenerate } from './controlIdGenerate';
 
 export async function generateControl(controlId: string) {
   let confirmation = confirm('Deseja realmente finalizar a comanda');
 
   if (confirmation) {
-    const orders: Order[] = getStorageData('tableOrderInfo');
+    const orders: Order[] = getSessionStorageData('tableOrderInfo');
 
     const newControl: Control = {
       name: controlId,
@@ -33,9 +33,9 @@ export async function generateControl(controlId: string) {
       });
     });
 
-    triggerAlert(`Comanda ${controlId} fechada!`, 'success', 'bottom');
+    triggerAlert(`Comanda ${controlId} fechada!`, 'success');
 
-    saveToStorage('controlId', controlIdGenerate());
+    saveToSessionStorage('controlId', controlIdGenerate());
 
     startMenu();
   } else {

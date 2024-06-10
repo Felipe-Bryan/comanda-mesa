@@ -1,10 +1,10 @@
 import { Order } from '../types/Order';
-import { getStorageData } from '../utils/getStorageData';
-import { saveToStorage } from '../utils/saveToStorage';
+import { getSessionStorageData } from '../utils/getStorageData';
+import { saveToSessionStorage } from '../utils/saveToStorage';
 import { calcValues } from './calcValues';
 
 export function addOrderQt() {
-  const orderFound: Order = getStorageData('newOrder');
+  const orderFound: Order = getSessionStorageData('newOrder');
   const input = <HTMLInputElement>document.getElementById('orderQt')!;
   const orderValue = document.getElementById('orderValue')!;
 
@@ -16,5 +16,5 @@ export function addOrderQt() {
 
   orderFound.value = calcValues(orderFound);
 
-  saveToStorage('newOrder', orderFound);
+  saveToSessionStorage('newOrder', orderFound);
 }

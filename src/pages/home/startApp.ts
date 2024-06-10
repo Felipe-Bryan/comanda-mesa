@@ -5,20 +5,20 @@ import { Additional } from '../../types/Additional';
 import { Required, RequiredItem } from '../../types/Required';
 import { Store } from '../../types/Store';
 import { componentVisibility } from '../../utils/componentVisibility';
-import { getStorageData } from '../../utils/getStorageData';
+import { getSessionStorageData } from '../../utils/getStorageData';
 import { getUrlValue } from '../../utils/getUrlValue';
-import { saveToStorage } from '../../utils/saveToStorage';
+import { saveToSessionStorage } from '../../utils/saveToStorage';
 import { startMenu } from '../menu/startMenu';
 import { defineStoreInfo } from './defineStoreInfo';
 
 export function startApp() {
-  const store: Store = getStorageData('storeInfo');
-  store.categories = getStorageData('categoryInfo');
-  store.products = getStorageData('productInfo');
+  const store: Store = getSessionStorageData('storeInfo');
+  store.categories = getSessionStorageData('categoryInfo');
+  store.products = getSessionStorageData('productInfo');
 
-  const additionals = getStorageData('additionalInfo');
-  const required = getStorageData('requiredInfo');
-  const requiredItems = getStorageData('requiredItemInfo');
+  const additionals = getSessionStorageData('additionalInfo');
+  const required = getSessionStorageData('requiredInfo');
+  const requiredItems = getSessionStorageData('requiredItemInfo');
 
   store.products.forEach((product) => {
     product.additionals = additionals.filter((additional: Additional) => additional.productId === product.id);
@@ -34,9 +34,9 @@ export function startApp() {
     });
   });
 
-  saveToStorage('storeInfo', store);
+  saveToSessionStorage('storeInfo', store);
 
-  saveToStorage('controlId', controlIdGenerate());
+  saveToSessionStorage('controlId', controlIdGenerate());
 
   defineStoreInfo(store);
   setClickNavButtons();

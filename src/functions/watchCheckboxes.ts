@@ -1,26 +1,26 @@
 import { AdditionalSelected } from '../types/AdditionalSelected';
 import { Order } from '../types/Order';
-import { getStorageData } from '../utils/getStorageData';
+import { getSessionStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
-import { saveToStorage } from '../utils/saveToStorage';
+import { saveToSessionStorage } from '../utils/saveToStorage';
 import { calcValues } from './calcValues';
 
 export function watchCheckboxes() {
   const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.additional');
   const orderValue = document.getElementById('orderValue')!;
 
-  const orderFound: Order = getStorageData('newOrder');
+  const orderFound: Order = getSessionStorageData('newOrder');
 
   let modifiedOrder: Order = {
     ...orderFound,
     additionalSelected: [],
   };
 
-  saveToStorage('newOrder', modifiedOrder);
+  saveToSessionStorage('newOrder', modifiedOrder);
 
   inputs.forEach((input) => {
     input.addEventListener('change', () => {
-      modifiedOrder = getStorageData('newOrder');
+      modifiedOrder = getSessionStorageData('newOrder');
 
       const additionalItem: AdditionalSelected = {
         id: input.id,
@@ -36,7 +36,7 @@ export function watchCheckboxes() {
         orderValue.innerText = calcValues(modifiedOrder).toFixed(2);
         modifiedOrder.value = calcValues(modifiedOrder);
 
-        saveToStorage('newOrder', modifiedOrder);
+        saveToSessionStorage('newOrder', modifiedOrder);
       } else {
         const indexOfAdd = modifiedOrder.additionalSelected?.findIndex((item) => {
           return item.id === additionalItem.id;
@@ -55,7 +55,7 @@ export function watchCheckboxes() {
         orderValue.innerText = calcValues(modifiedOrder).toFixed(2);
         modifiedOrder.value = calcValues(modifiedOrder);
 
-        saveToStorage('newOrder', modifiedOrder);
+        saveToSessionStorage('newOrder', modifiedOrder);
       }
     });
   });
