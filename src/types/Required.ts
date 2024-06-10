@@ -11,4 +11,5 @@ export interface RequiredItem {
   name: string;
   price: number;
   requiredId: string;
+  active: boolean;
 }
