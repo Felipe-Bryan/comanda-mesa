@@ -6,7 +6,9 @@ export function requiredItem(requiredItem: Required, sequency: number): string {
   <div id="${requiredItem.id}-items">`;
 
   for (let i = 0; i < requiredItem.items.length; i++) {
-    result += formItem(requiredItem.id, requiredItem.items[i], sequency);
+    if (requiredItem.items[i].active === true) {
+      result += formItem(requiredItem.id, requiredItem.items[i], sequency);
+    }
   }
 
   result += `</div><br/>`;

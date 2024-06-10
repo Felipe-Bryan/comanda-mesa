@@ -68,11 +68,7 @@ export function setCardClick(products: Product[], productId: string) {
 
         for (let i = 0; i < productFound.requireds.length; i++) {
           if (productFound.requireds[i].active === true) {
-            productFound.requireds[i].items.forEach((reqItem) => {
-              if (reqItem.active === true && reqItem.requiredId === productFound.requireds[i].id) {
-                requiredOptionsSpot.innerHTML += requiredItem(productFound.requireds[i], i);
-              }
-            });
+            requiredOptionsSpot.innerHTML += requiredItem(productFound.requireds[i], i);
           }
         }
       } else {
