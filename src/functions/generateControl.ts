@@ -33,7 +33,7 @@ export async function generateControl(controlId: string) {
       });
     });
 
-    triggerAlert(`Comanda ${controlId} fechada!`, 'success');
+    triggerAlert(`Comanda ${controlId} fechada!`, 'success', 'bottom');
 
     saveToStorage('controlId', controlIdGenerate());
 

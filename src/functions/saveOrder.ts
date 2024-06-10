@@ -32,7 +32,7 @@ export async function saveOrder() {
   if (customerNameIpt.value == '' || customerNameIpt.value.length < 2) {
     customerNameIpt.classList.add('is-invalid');
 
-    triggerAlert('Nome deve conter mais de 2 letras', 'danger');
+    triggerAlert('Nome deve conter mais de 2 letras', 'danger', 'top', 4000);
 
     return;
   } else {
@@ -77,6 +77,6 @@ export async function saveOrder() {
   await new apiData().postData('order', orderToDb).then((data) => {
     toggleModal();
 
-    triggerAlert(data.msg, 'success', 4000);
+    triggerAlert(data.msg, 'success', 'bottom', 4000);
   });
 }

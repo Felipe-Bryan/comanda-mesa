@@ -27,7 +27,7 @@ export function watchOrderStatus(tableId: string) {
       if (order.status === 'Enviado') {
         saveToSessionStorage(`${order.id}`, order.status);
       } else if (order.status === 'Confirmado' && monitored === 'Enviado') {
-        triggerAlert(`${order.productName} confirmado`, 'primary', 4000);
+        triggerAlert(`${order.productName} confirmado`, 'primary', 'top', 4000);
 
         renderTableItems();
 
