@@ -15,6 +15,8 @@ export async function saveOrder() {
         if (orderFound.requiredSelected[i].id === `${i}`) {
           document.querySelectorAll(`.required${i}`)!.forEach((input) => {
             input.classList.add('is-invalid');
+
+            triggerAlert('Deve selecionar um item obrigatório!', 'danger', 5000);
           });
 
           return;
