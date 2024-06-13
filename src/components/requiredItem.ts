@@ -3,7 +3,7 @@ import { Required, RequiredItem } from '../types/Required';
 export function requiredItem(requiredItem: Required, sequency: number): string {
   let result = `
   <p class="fw-bold fst-italic">${requiredItem.title} *Obrigatório</p>
-  <div id="${requiredItem.id}-items">`;
+  <div id="items${requiredItem.id}">`;
 
   for (let i = 0; i < requiredItem.items.length; i++) {
     if (requiredItem.items[i].active === true) {
@@ -17,7 +17,7 @@ export function requiredItem(requiredItem: Required, sequency: number): string {
 
 function formItem(parentId: string, item: RequiredItem, sequency: number) {
   return `
-<div class="form-check">
+<div class="form-check" id="form${sequency}">
     <input 
         class="form-check-input required${sequency}" 
         type="radio" 

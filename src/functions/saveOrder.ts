@@ -1,10 +1,11 @@
 import { triggerAlert } from '../components/alert';
+import { alertModal } from '../components/alertModal';
 import { apiData } from '../service/api.service';
 import { Order } from '../types/Order';
 import { getSessionStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
 import { saveToStorage } from '../utils/saveToStorage';
-import { toggleModal } from '../utils/toggleModal';
+import { toggleModal2 } from '../utils/toggleModal';
 
 export async function saveOrder() {
   const orderFound: Order = getSessionStorageData('newOrder');
@@ -13,11 +14,17 @@ export async function saveOrder() {
     if (orderFound.requiredSelected.length > 0) {
       for (let i = 0; i < orderFound.requiredSelected.length; i++) {
         if (orderFound.requiredSelected[i].id === `${i}`) {
-          document.querySelectorAll(`.required${i}`)!.forEach((input) => {
+          const requiredInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll(`.required${i}`)!;
+
+          requiredInputs.forEach((input) => {
             input.classList.add('is-invalid');
 
-            triggerAlert('Deve selecionar um item obrigatório!', 'danger', 5000);
+            input.focus();
           });
+
+          triggerAlert('Deve selecionar um item obrigatório!', 'danger', 10000);
+
+          alertModal('Atenção!', 'Deve selecionar um dos itens obrigatórios!', false);
 
           return;
         }
@@ -34,7 +41,11 @@ export async function saveOrder() {
   if (customerNameIpt.value == '' || customerNameIpt.value.length < 2) {
     customerNameIpt.classList.add('is-invalid');
 
-    triggerAlert('Nome deve conter mais de 2 letras', 'danger', 4000);
+    triggerAlert('Por favor informe seu nome', 'danger', 10000);
+
+    customerNameIpt.addEventListener('change', () => {
+      customerNameIpt.classList.remove('is-invalid');
+    });
 
     return;
   } else {
@@ -76,8 +87,10 @@ export async function saveOrder() {
     }
   }
 
+  alertModal('Enviando pedido', 'Aguarde...', false);
+
   await new apiData().postData('order', orderToDb).then((data) => {
-    toggleModal();
+    toggleModal2();
 
     triggerAlert(data.msg, 'success', 4000);
   });

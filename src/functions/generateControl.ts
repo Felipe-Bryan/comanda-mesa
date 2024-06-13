@@ -6,39 +6,36 @@ import { Order } from '../types/Order';
 import { getSessionStorageData } from '../utils/getStorageData';
 import { getUrlValue } from '../utils/getUrlValue';
 import { saveToSessionStorage } from '../utils/saveToStorage';
+import { toggleModal2 } from '../utils/toggleModal';
 import { controlIdGenerate } from './controlIdGenerate';
 
 export async function generateControl(controlId: string) {
-  let confirmation = confirm('Deseja realmente finalizar a comanda');
+  const orders: Order[] = getSessionStorageData('tableOrderInfo');
 
-  if (confirmation) {
-    const orders: Order[] = getSessionStorageData('tableOrderInfo');
+  const newControl: Control = {
+    name: controlId,
+    tableId: getUrlValue('t'),
+    storeId: getUrlValue('s'),
+    orders,
+  };
 
-    const newControl: Control = {
-      name: controlId,
-      tableId: getUrlValue('t'),
-      storeId: getUrlValue('s'),
-      orders,
-    };
+  await new apiData().postData('control', {
+    name: newControl.name,
+    tableId: newControl.tableId,
+    storeId: newControl.storeId,
+  });
 
-    await new apiData().postData('control', {
-      name: newControl.name,
-      tableId: newControl.tableId,
-      storeId: newControl.storeId,
+  newControl.orders.forEach(async (order) => {
+    await new apiData().putData('order', order.id, {
+      controlId: newControl.name,
     });
+  });
 
-    newControl.orders.forEach(async (order) => {
-      await new apiData().putData('order', order.id, {
-        controlId: newControl.name,
-      });
-    });
+  triggerAlert(`Comanda ${controlId} fechada!`, 'success');
 
-    triggerAlert(`Comanda ${controlId} fechada!`, 'success');
+  saveToSessionStorage('controlId', controlIdGenerate());
 
-    saveToSessionStorage('controlId', controlIdGenerate());
+  toggleModal2();
 
-    startMenu();
-  } else {
-    return;
-  }
+  startMenu();
 }

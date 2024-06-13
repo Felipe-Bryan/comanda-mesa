@@ -3,3 +3,9 @@ export function toggleModal() {
 
   btn.click();
 }
+
+export function toggleModal2() {
+  const btn = document.getElementById('closeModal2')!;
+
+  btn.click();
+}

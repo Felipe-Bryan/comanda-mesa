@@ -35,6 +35,7 @@ export function watchRadios(products: Product[]) {
 
     for (let i = 0; i < product.requireds.length; i++) {
       const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll(`.required${i}`)!;
+      const form = document.getElementById(`items${i}`)!;
 
       inputs.forEach((input) => {
         input.addEventListener('change', () => {

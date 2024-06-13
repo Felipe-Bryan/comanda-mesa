@@ -1,3 +1,4 @@
+import { alertModal } from '../../components/alertModal';
 import { tableOrderItem } from '../../components/tableOrderItem';
 import { generateControl } from '../../functions/generateControl';
 import { Table } from '../../types/Table';
@@ -26,13 +27,18 @@ export function renderTableItems() {
       const controlId = getSessionStorageData('controlId');
 
       document.getElementById('setControlSpot')!.innerHTML = `
-        <button class="btn btn-info" type="button" id="setControlBtn">Finalizar Comanda</button>`;
+        <button class="btn btn-info" type="button" id="setControlBtn" data-bs-toggle="modal" data-bs-target="#modal2">Finalizar Comanda</button>`;
 
       // atribuir click ao botão setControlBtn
       document.getElementById('setControlBtn')!.addEventListener('click', (e) => {
         e.preventDefault();
 
-        generateControl(controlId);
+        alertModal('Finalizar Comanda', 'Deseja realmente finalizar a comanda?', true);
+
+        const confirmBtn = document.getElementById('finishModal2')!;
+        confirmBtn.addEventListener('click', () => {
+          generateControl(controlId);
+        });
       });
     } else {
       document.getElementById('setControlSpot')!.innerHTML = ``;
